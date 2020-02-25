@@ -1,19 +1,24 @@
-import React, {useRef, useState} from 'react';
+import React, { useRef, useState } from 'react'
 import {
   SafeAreaView,
-  StyleSheet,
   ScrollView,
-  View,
-  Text,
   StatusBar,
-} from 'react-native';
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View
+} from 'react-native'
 
 import {
   Colors
-} from 'react-native/Libraries/NewAppScreen';
+} from 'react-native/Libraries/NewAppScreen'
 
-import { TextField } from 'react-native-material-textfield';
-import {RFPercentage, RFValue} from 'react-native-responsive-fontsize';
+import { TextField } from 'react-native-material-textfield'
+import { RFValue } from 'react-native-responsive-fontsize'
+import { SvgXml } from 'react-native-svg'
+
+import useItLogo from "./assets/images/LogoUseIt.svg"
+
 
 const App = () => {
   const [username, setUsername] = useState('')
@@ -30,7 +35,11 @@ const App = () => {
           contentInsetAdjustmentBehavior="automatic"
         >
           <View style={styles.body}>
-            <View style={styles.sectionContainer}>
+            <View style={styles.centerSvg}>
+              <SvgXml width="200" height="200" xml={useItLogo} />
+            </View>
+
+            <View style={styles.inputField}>
               <TextField
                 maxLength={50}
                 ref={inputUsername}
@@ -59,12 +68,26 @@ const App = () => {
                   setPassword(val);
                 }}
               />
-              <Text
-                onPress={() => console.log("register")}
-              >
-                I don't have account
-              </Text>
             </View>
+
+            <View>
+              <View style={styles.makeItBtnContainer}>
+                <TouchableOpacity
+                  underlayColor="white"
+                >
+                  <View style={styles.makeItBtn}>
+                    <Text style={styles.buttonText}>TouchableOpacity</Text>
+                  </View>
+                </TouchableOpacity>
+              </View>
+            </View>
+
+            <Text
+              style={styles.centerText}
+              onPress={() => console.log("register")}
+            >
+              I don't have account
+            </Text>
           </View>
         </ScrollView>
       </SafeAreaView>
@@ -73,16 +96,47 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
-  scrollView: {
-    backgroundColor: Colors.lighter,
-  },
   body: {
     backgroundColor: Colors.white,
+    borderWidth: 3,
+    flex: 1
   },
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  }
+  centerSvg: {
+    flex: 1,
+    marginTop: 60,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  centerText: {
+    flex: 1,
+    marginTop: 12,
+    color: "#3D5B9B",
+    fontSize: RFValue(12, 580),
+    textAlign: "center"
+  },
+  inputField: {
+    flex: 1,
+    marginHorizontal: 40
+  },
+  makeItBtn: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    color: "#FFFFFF"
+  },
+  makeItBtnContainer: {
+    flex: 1,
+    height: RFValue(28, 580),
+    width: RFValue(200, 580),
+    borderRadius: 45,
+    backgroundColor: "#3D5B9B",
+    alignItems: 'center',
+    marginTop: 16
+  },
+  scrollView: {
+    backgroundColor: Colors.white,
+    flex: 1
+  },
 });
 
 export default App;

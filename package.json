@@ -11,10 +11,13 @@
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.8.0",
+    "babel-plugin-inline-import": "^3.0.0",
     "react": "16.9.0",
     "react-native": "0.61.5",
     "react-native-material-textfield": "^0.16.1",
     "react-native-responsive-fontsize": "^0.4.3",
+    "react-native-svg": "^11.0.1",
+    "react-native-svg-transformer": "^0.14.3",
     "react-native-vector-icons": "^6.6.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
