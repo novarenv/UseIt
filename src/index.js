@@ -1,10 +1,11 @@
 import React from 'react'
-import { View, BackHandler, Alert } from 'react-native'
+import { BackHandler, Alert } from 'react-native'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/lib/integration/react'
-import { persistor, store } from './store/store'
-import App from './App'
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
+
+import AuthNav from './AuthNav'
+import { persistor, store } from './store/store'
 
 class Root extends React.Component {
   onButtonPress = () => {
@@ -47,8 +48,8 @@ class Root extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <PersistGate loading={<View />} persistor={persistor}>
-          <App />
+        <PersistGate persistor={persistor}>
+          <AuthNav />
         </PersistGate>
       </Provider>
     );
