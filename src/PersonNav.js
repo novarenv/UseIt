@@ -6,7 +6,12 @@ import { createBottomTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator, TransitionPresets } from 'react-navigation-stack'
 
 import HomeScreen from './container/Person/Home/Index'
-import ShippingScreen from './container/Person/Shipping/Index'
+import CategoryAllScreen from './container/Person/Home/CategoryAll'
+import CategoryItemsScreen from './container/Person/Home/CategoryItems'
+import ItemDetailScreen from './container/Person/Home/ItemDetail'
+import ItemSellerScreen from './container/Person/Home/ItemSeller'
+import SearchScreen from './container/Person/Search/Index'
+import CartScreen from './container/Person/Cart/Index'
 
 const config = Platform.select({
   web: { headerMode: 'screen' },
@@ -17,10 +22,48 @@ const config = Platform.select({
   },
 })
 
+const Home = require('./assets/images/Home.png')
+const HomeSelected = require('./assets/images/HomeSelected.png')
+const Search = require('./assets/images/Search.png')
+const SearchSelected = require('./assets/images/SearchSelected.png')
+const Cart = require('./assets/images/Cart.png')
+const CartSelected = require('./assets/images/CartSelected.png')
+
 const HomeStack = createStackNavigator(
   {
     Home: {
       screen: HomeScreen,
+      navigationOptions: {
+        headerShown: false,
+      }
+    },
+    CategoryAll: {
+      screen: CategoryAllScreen,
+      navigationOptions: {
+        headerShown: false,
+        tabBarVisible: true
+      }
+    },
+    CategoryItems: {
+      screen: CategoryItemsScreen,
+      navigationOptions: {
+        headerShown: false,
+      }
+    },
+    ItemDetail: {
+      screen: ItemDetailScreen,
+      navigationOptions: {
+        headerShown: false,
+      }
+    },
+    ItemSeller: {
+      screen: ItemSellerScreen,
+      navigationOptions: {
+        headerShown: false,
+      }
+    },
+    Search: {
+      screen: SearchScreen,
       navigationOptions: {
         headerShown: false,
       }
@@ -34,15 +77,13 @@ HomeStack.navigationOptions = ({ navigation }) => {
     navigationOptions.tabBarVisible = false;
   }
 
-  const Back = require('./assets/images/Back.png')
-
   return {
     tabBarLabel: ({ focused }) => (
       <Text
         bold={focused ? true : false}
         style={
           focused
-            ? { textAlign: 'center', fontSize: RFValue(9, 580) }
+            ? { textAlign: 'center', fontSize: RFValue(9, 580), color: "#F2E201" }
             : { textAlign: 'center', fontSize: RFValue(9, 580), color: '#B1B7C5' }
         }>
         Home
@@ -50,21 +91,16 @@ HomeStack.navigationOptions = ({ navigation }) => {
     ),
     tabBarIcon: ({ focused }) => (
       <Image
-        style={
+        style={{
+          width: 28,
+          height: 28,
+          margin: 12
+        }}
+        source={
           focused
-            ? {
-              opacity: 1,
-              width: 28,
-              height: 28,
-              margin: 12
-            }
-            : {
-              opacity: 0.2,
-              width: 28,
-              height: 28,
-              margin: 12
-            }}
-        source={Back}
+            ? HomeSelected
+            : Home
+        }
       />
     ),
     ...navigationOptions,
@@ -72,19 +108,66 @@ HomeStack.navigationOptions = ({ navigation }) => {
 }
 HomeStack.path = ''
 
-const ShippingStack = createStackNavigator(
+const SearchStack = createStackNavigator(
   {
-    Shipping: {
-      screen: HomeScreen,
+    Search: {
+      screen: SearchScreen,
       navigationOptions: {
         headerShown: false,
       }
     }
   }
 )
-ShippingStack.navigationOptions = ({ navigation }) => {
+SearchStack.navigationOptions = ({ navigation }) => {
   let navigationOptions = {};
-  if (navigation.state.routes[navigation.state.index].routeName !== 'Shipping') {
+  if (navigation.state.routes[navigation.state.index].routeName !== 'Search') {
+    navigationOptions.tabBarVisible = false;
+  }
+
+  return {
+    tabBarLabel: ({ focused }) => (
+      <Text
+        bold={focused ? true : false}
+        style={
+          focused
+            ? { textAlign: 'center', fontSize: RFValue(9, 580), color: "#F2E201" }
+            : { textAlign: 'center', fontSize: RFValue(9, 580), color: '#B1B7C5' }
+        }>
+        Search
+      </Text>
+    ),
+    tabBarIcon: ({ focused }) => (
+      <Image
+        style={{
+          width: 28,
+          height: 28,
+          margin: 12
+        }}
+        source={
+          focused
+            ? SearchSelected
+            : Search
+        }
+      />
+    ),
+    ...navigationOptions,
+  };
+}
+SearchStack.path = ''
+
+const CartStack = createStackNavigator(
+  {
+    Cart: {
+      screen: CartScreen,
+      navigationOptions: {
+        headerShown: false,
+      }
+    }
+  }
+)
+CartStack.navigationOptions = ({ navigation }) => {
+  let navigationOptions = {};
+  if (navigation.state.routes[navigation.state.index].routeName !== 'Cart') {
     navigationOptions.tabBarVisible = false;
   }
 
@@ -96,46 +179,42 @@ ShippingStack.navigationOptions = ({ navigation }) => {
         bold={focused ? true : false}
         style={
           focused
-            ? { textAlign: 'center', fontSize: RFValue(9, 580) }
+            ? { textAlign: 'center', fontSize: RFValue(9, 580), color: "#F2E201" }
             : { textAlign: 'center', fontSize: RFValue(9, 580), color: '#B1B7C5' }
         }>
-        Shipping
+        Cart
       </Text>
     ),
     tabBarIcon: ({ focused }) => (
       <Image
-        style={
+        style={{
+          width: 28,
+          height: 28,
+          margin: 12
+        }}
+        source = {
           focused
-            ? {
-              opacity: 1,
-              width: 28,
-              height: 28,
-              margin: 12
-            }
-            : {
-              opacity: 0.2,
-              width: 28,
-              height: 28,
-              margin: 12
-            }}
-        source={Back}
+            ? CartSelected  
+            : Cart
+        }
       />
     ),
     ...navigationOptions,
   };
 }
-ShippingStack.path = ''
+CartStack.path = ''
 
-const PersonNavigator = createBottomTabNavigator(
+const PersonTabNav = createBottomTabNavigator(
   {
     HomeStack,
-    ShippingStack
+    SearchStack,
+    CartStack
   },
   {
     tabBarOptions: {
       style: {
         height: 60,
-        paddingBottom: 8,
+        paddingVertical: 4  ,
         backgroundColor: "#3D5B9B"
       },
       activeTintColor: '#F2E201',
@@ -144,6 +223,6 @@ const PersonNavigator = createBottomTabNavigator(
     },
   }
 )
-PersonNavigator.path = ''
+PersonTabNav.path = ''
 
-export default PersonNavigator
+export default PersonTabNav

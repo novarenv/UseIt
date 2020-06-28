@@ -2,6 +2,7 @@ import React from 'react'
 import { BackHandler, Alert } from 'react-native'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/lib/integration/react'
+import { Provider as PaperProvider } from 'react-native-paper';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome'
 
 import AuthNav from './AuthNav'
@@ -10,7 +11,7 @@ import { persistor, store } from './store/store'
 class Root extends React.Component {
   onButtonPress = () => {
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    
+
     navigate('NewScreen');
   };
 
@@ -49,7 +50,9 @@ class Root extends React.Component {
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <AuthNav />
+          <PaperProvider>
+            <AuthNav />
+          </PaperProvider>
         </PersistGate>
       </Provider>
     );

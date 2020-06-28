@@ -10,6 +10,7 @@ import CreatePersonScreen from './container/CreatePerson'
 import CreateCompanyScreen from './container/CreateCompany'
 
 import PersonNav from './PersonNav'
+import CompanyNav from './CompanyNav'
 
 
 const AuthStack = createStackNavigator(
@@ -51,7 +52,8 @@ const AuthNavigator = createAppContainer(
   createSwitchNavigator(
     {
       Auth: AuthStack,
-      Person: PersonNav
+      Person: PersonNav,
+      Company: CompanyNav
     },
     {
       initialRouteName: "Auth"

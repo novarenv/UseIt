@@ -1,13 +1,14 @@
 import React, { useRef, useState } from 'react'
 import {
+  Dimensions,
+  Image,
+  ImageBackground,
   SafeAreaView,
   ScrollView,
   StatusBar,
   Text,
   TouchableOpacity,
-  Dimensions,
-  View,
-  Image
+  View
 } from 'react-native'
 
 import { TextInput } from 'react-native-paper'
@@ -22,30 +23,33 @@ const Login = props => {
   const [errorPassword, setErrorPassword] = useState('')
   const inputUsername = useRef(null)
 
-  const logoUseIt = require('../assets/images/LogoUseIt.png')
   const Back = require('../assets/images/Back.png')
+  const HeaderBg = require('../assets/images/HeaderBg.png')
+  const LogoUseIt = require('../assets/images/LogoUseIt.png')
 
   return (
     <>
-      <StatusBar backgroundColor="white" />
+      <StatusBar />
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView
           style={{ flex: 1 }}
           contentInsetAdjustmentBehavior="automatic"
           backgroundColor='#fff'
         >
-          <TouchableOpacity
-            onPress={() => props.navigation.pop()}
-          >
-            <Image
-              style={{
-                width: 28,
-                height: 28,
-                margin: 12
-              }}
-              source={Back}
-            />
-          </TouchableOpacity>
+          <ImageBackground source={HeaderBg} style={{ width: "100%", height: RFValue(80, 580) }}>
+            <TouchableOpacity
+              onPress={() => props.navigation.pop()}
+            >
+              <Image
+                style={{
+                  width: 28,
+                  height: 28,
+                  margin: 12
+                }}
+                source={Back}
+              />
+            </TouchableOpacity>
+          </ImageBackground>
 
           <View style={{ height: height, padding: RFValue(24, 580) }}>
             <View style={{ marginTop: 16, justifyContent: 'center', alignItems: 'center' }}>
@@ -53,7 +57,7 @@ const Login = props => {
             </View>
 
             <View style={{ marginTop: RFValue(8, 580), alignItems: 'center', justifyContent: 'center' }}>
-              <Image style={{ width: RFValue(200, 580), height: RFValue(200, 580) }} source={logoUseIt} />
+              <Image style={{ width: RFValue(200, 580), height: RFValue(200, 580) }} source={LogoUseIt} />
             </View>
 
             <View style={{ marginTop: 92 }}>
